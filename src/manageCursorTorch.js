@@ -1,0 +1,10 @@
+function update(e) {
+    var x = e.clientX || e.x;
+    var y = e.clientY || e.y;
+
+    document.documentElement.style.setProperty('--cursorX', x + 'px');
+    document.documentElement.style.setProperty('--cursorY', y + 'px');
+}
+
+document.addEventListener('mousemove', update);
+document.addEventListener('touchmove', update);
