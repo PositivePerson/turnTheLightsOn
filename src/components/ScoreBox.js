@@ -6,6 +6,8 @@ const Seconds = styled.div`
     font-weight: 600;
     display: inline-flex;
     position: relative;
+
+    margin-bottom: .4em;
 `;
 
 const Ms = styled.div`
@@ -16,12 +18,13 @@ const Ms = styled.div`
     right: -1.5em;
 `;
 
-const ScoreBox = () => {
+const ScoreBox = (props) => {
+
     return (
         <div>
-            <Seconds>4379<Ms>ms</Ms></Seconds>
+            <Seconds>{props.time}<Ms>ms</Ms></Seconds>
             <div>
-                <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action">Play again</button>
+                <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => props.startGame()}>Play again</button>
                 <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action">Puff it</button>
             </div>
         </div>

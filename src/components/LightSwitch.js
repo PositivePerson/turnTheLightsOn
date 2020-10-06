@@ -20,7 +20,7 @@ export const renderPlace = () => {
     document.getElementsByClassName("switch")[0].style.top = Y + "px";
 }
 
-const LightSwitch = React.forwardRef((props, ref) => {
+const LightSwitch = (props) => {
 
     const [bright, setBright] = useState(false);
 
@@ -33,9 +33,13 @@ const LightSwitch = React.forwardRef((props, ref) => {
         console.log(
             document.getElementsByClassName("switch")[0].style.left)
         console.log(
-            document.getElementsByClassName("switch")[0].style.top)
-    }, [bright])
+            document.getElementsByClassName("switch")[0].style.top);
+        if (bright) props.endGame();
+    }, [bright]);
 
+    useEffect(() => {
+        if (props.start) { setBright(false) }
+    }, [props.start]);
 
     return (
         <SwitchDiv className="switch">
@@ -47,6 +51,6 @@ const LightSwitch = React.forwardRef((props, ref) => {
             </label>
         </SwitchDiv>
     )
-});
+};
 
 export default LightSwitch;

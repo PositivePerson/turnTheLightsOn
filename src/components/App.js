@@ -11,8 +11,27 @@ import LightSwitch, { renderPlace } from './LightSwitch';
 import ScoreBox from './ScoreBox';
 import ProfileButtons from './ProfileButtons';
 
+const calculateTime = (beginning) => {
+  let difference = 0;
+  if (beginning) {
+    difference = new Date() - beginning;
+  }
+  return difference;
+}
+
+let beginning = undefined;
+
 function App() {
   const [start, setStart] = useState(false);
+  const [time, setTime] = useState(calculateTime());
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const calculated = calculateTime(beginning);
+      if (calculated) setTime(calculateTime(beginning));
+    }, 10);
+    return () => clearTimeout(timer);
+  })
 
   useEffect(() => {
     // Init Materialize JS
@@ -21,33 +40,41 @@ function App() {
 
   const startGame = () => {
     setStart(true);
+    beginning = new Date();
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
     renderPlace();
   }
 
+  const endGame = () => {
+    setStart(false);
+    beginning = null;
+  }
+
+  const cursorType = !start && beginning === undefined ? { cursor: "pointer" } : { cursor: "default" };
+
   return (
-    <div className="App" style={!start ? { cursor: "pointer" } : { cursor: "default" }} onClick={() => { if (!start) { startGame() } }
+    <div className="App" style={cursorType} onClick={() => { if (!start && beginning === undefined) { startGame() } }
     }>
       <header />
       <div className="credits">
-        {!start && <WelcomeTips />}
-        {start && <ScoreBox />}
+        {!start && beginning === undefined && <WelcomeTips />}
+        {!start && beginning === null && <ScoreBox startGame={startGame} time={time} />}
       </div>
+      <span> {time} </span>
       <BrightnessSlider />
-      <LightSwitch />
+      <LightSwitch endGame={endGame} start={start} />
       {/* <div className="result">
         <ScoreBox />
       </div> */}
-      <div className="me">
-        <ProfileButtons />
-      </div>
+      {!start && beginning === null &&
+        <div className="me">
+          <ProfileButtons />
+        </div>
+      }
 
     </div >
   );
+
 }
-
-
-
-
 
 export default App;
