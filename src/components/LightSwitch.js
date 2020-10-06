@@ -1,7 +1,5 @@
 import React, {
-    useEffect, useState,
-    useImperativeHandle,
-    forwardRef
+    useEffect, useState
 } from 'react';
 import styled from 'styled-components';
 import '../App.css';
@@ -11,19 +9,18 @@ position: absolute;
 background: red;
     `;
 
+export const renderPlace = () => {
+    const screenWidth = document.getElementsByTagName("html")[0].clientWidth;
+    const screenHeight = document.getElementsByTagName("html")[0].clientHeight;
+
+    const X = Math.floor(Math.random() * (screenWidth - 60 + 1) + 10);
+    const Y = Math.floor(Math.random() * (screenHeight - 40 + 1) + 10);
+
+    document.getElementsByClassName("switch")[0].style.left = X + "px";
+    document.getElementsByClassName("switch")[0].style.top = Y + "px";
+}
+
 const LightSwitch = React.forwardRef((props, ref) => {
-    useImperativeHandle(ref, () => ({
-        renderPlace() {
-            const screenWidth = document.getElementsByTagName("html")[0].clientWidth;
-            const screenHeight = document.getElementsByTagName("html")[0].clientHeight;
-
-            const X = Math.floor(Math.random() * (screenWidth - 10 + 1) + 10);
-            const Y = Math.floor(Math.random() * (screenHeight - 10 + 1) + 10);
-
-            document.getElementsByClassName("switch")[0].style.left = X + "px";
-            document.getElementsByClassName("switch")[0].style.top = Y + "px";
-        }
-    }));
 
     const [bright, setBright] = useState(false);
 
@@ -38,9 +35,6 @@ const LightSwitch = React.forwardRef((props, ref) => {
         console.log(
             document.getElementsByClassName("switch")[0].style.top)
     }, [bright])
-
-
-
 
 
     return (
