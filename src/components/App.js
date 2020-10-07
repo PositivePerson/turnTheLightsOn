@@ -40,9 +40,10 @@ function App() {
 
   const startGame = () => {
     setStart(true);
+    document.documentElement.style.setProperty('--firstBgColorOpacity', 0);
+    document.documentElement.style.setProperty('--secondBgColorOpacity', .3);
+    document.documentElement.style.setProperty('--thirdBgColorOpacity', 1);
     beginning = new Date();
-    document.getElementsByTagName("html")[0].style.backgroundColor = "white";
-    renderPlace();
   }
 
   const endGame = () => {
@@ -56,18 +57,20 @@ function App() {
     <div className="App" style={cursorType} onClick={() => { if (!start && beginning === undefined) { startGame() } }
     }>
       <header />
-      <div className="credits">
-        {!start && beginning === undefined && <WelcomeTips />}
-        {!start && beginning === null && <ScoreBox startGame={startGame} time={time} />}
+      <div className="initialCredits">
+        {beginning === undefined && <WelcomeTips />}
       </div>
-      <span> {time} </span>
+      <div className="endCredits">
+        {beginning === null && <ScoreBox startGame={startGame} time={time} />}
+      </div>
       <div className="w-100 d-flex justify-content-center">
-        <BrightnessSlider />
+        {beginning === null &&
+          <BrightnessSlider start={start} beginning={beginning} />
+        }
       </div>
-      <LightSwitch endGame={endGame} start={start} />
-      {/* <div className="result">
-        <ScoreBox />
-      </div> */}
+      {beginning &&
+        <LightSwitch endGame={endGame} start={start} />
+      }
       {!start && beginning === null &&
         <div className="me">
           <ProfileButtons />

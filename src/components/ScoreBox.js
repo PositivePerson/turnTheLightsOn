@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Seconds = styled.div`
+    color: white;
     font-size: 2em;
     font-weight: 600;
     display: inline-flex;

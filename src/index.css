@@ -18,7 +18,7 @@ code {
 }
 
 /* Torch Overlay */
-/* html {
+html {
   background: black;
 }
 
@@ -26,8 +26,13 @@ code {
   cursor: none;
   --cursorX: 50vw;
   --cursorY: 50vh;
+  --firstBgColorOpacity: 1;
+  --secondBgColorOpacity: 1;
+  --thirdBgColorOpacity: 1;
 }
 .rootClass:before {
+  z-index: 100;
+
   content: '';
   display: block;
   width: 100%;
@@ -36,8 +41,9 @@ code {
   pointer-events: none;
   background: radial-gradient(
     circle 6vmax at var(--cursorX) var(--cursorY),
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,.3) 80%,
-    rgba(0,0,0,8) 100%
+    rgba(0,0,0,var(--firstBgColorOpacity)) 0%,
+    rgba(0,0,0,var(--secondBgColorOpacity)) 80%,
+    rgba(0,0,0,var(--thirdBgColorOpacity)) 100%
   )
-} */
+
+}

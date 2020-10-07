@@ -4,6 +4,8 @@
 }
 
 .App {
+  background: rgb(200, 200, 200);
+
   width: 100%;
   height: 100%;
   position: relative;
@@ -12,12 +14,17 @@
 }
 
 /* .welcomeTipsBox, .result { */
-.credits {
+.initialCredits,
+.endCredits {
   position: absolute;
   left: 50%;
   top: 35%;
   transform: translate(-50%, -50%);
   text-align: center;
+}
+
+.initialCredits {
+  z-index: 101;
 }
 
 .me {
