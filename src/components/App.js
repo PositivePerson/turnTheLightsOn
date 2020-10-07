@@ -61,7 +61,9 @@ function App() {
         {!start && beginning === null && <ScoreBox startGame={startGame} time={time} />}
       </div>
       <span> {time} </span>
-      <BrightnessSlider />
+      <div className="w-100 d-flex justify-content-center">
+        <BrightnessSlider />
+      </div>
       <LightSwitch endGame={endGame} start={start} />
       {/* <div className="result">
         <ScoreBox />
