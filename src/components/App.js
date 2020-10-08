@@ -7,7 +7,7 @@ import '../manageCursorTorch';
 
 import WelcomeTips from './WelcomeTips';
 import BrightnessSlider from './BrightnessSlider';
-import LightSwitch, { renderPlace } from './LightSwitch';
+import LightSwitch from './LightSwitch';
 import ScoreBox from './ScoreBox';
 import ProfileButtons from './ProfileButtons';
 
@@ -22,8 +22,10 @@ const calculateTime = (beginning) => {
 let beginning = undefined;
 
 function App() {
+
   const [start, setStart] = useState(false);
   const [time, setTime] = useState(calculateTime());
+  const [destroyed, setDestroyed] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -61,11 +63,11 @@ function App() {
         {beginning === undefined && <WelcomeTips />}
       </div>
       <div className="endCredits">
-        {beginning === null && <ScoreBox startGame={startGame} time={time} />}
+        {beginning === null && !destroyed && <ScoreBox startGame={startGame} time={time} setDestroyed={setDestroyed} />}
       </div>
-      <div className="w-100 d-flex justify-content-center">
+      <div className="w-100 d-flex justify-content-center sliderBox">
         {beginning === null &&
-          <BrightnessSlider start={start} beginning={beginning} />
+          <BrightnessSlider start={start} beginning={beginning} this={this} />
         }
       </div>
       {beginning &&

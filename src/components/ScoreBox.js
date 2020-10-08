@@ -19,6 +19,11 @@ const Ms = styled.div`
     right: -1.5em;
 `;
 
+const destroyScoreBox = (props) => {
+    props.setDestroyed(true);
+    document.getElementsByClassName("me")[0].style.top = "40%"
+}
+
 const ScoreBox = (props) => {
 
     return (
@@ -26,9 +31,9 @@ const ScoreBox = (props) => {
             <Seconds>{props.time}<Ms>ms</Ms></Seconds>
             <div>
                 <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => props.startGame()}>Play again</button>
-                <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action">Puff it</button>
+                <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => destroyScoreBox(props)}>Puff it</button>
             </div>
-        </div>
+        </div >
     )
 }
 

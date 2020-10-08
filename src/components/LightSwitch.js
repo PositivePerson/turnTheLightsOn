@@ -7,8 +7,10 @@ export const renderPlace = () => {
     const screenWidth = document.getElementsByTagName("html")[0].clientWidth;
     const screenHeight = document.getElementsByTagName("html")[0].clientHeight;
 
-    const X = Math.floor(Math.random() * (screenWidth - 60 + 1) + 10);
-    const Y = Math.floor(Math.random() * (screenHeight - 40 + 1) + 10);
+    let X = Math.floor(Math.random() * (screenWidth - 60 + 1) - 68);
+    if (X < 0) { X = -X };
+    let Y = Math.floor(Math.random() * (screenHeight - 40 + 1) - 28);
+    if (Y < 0) { Y = -Y };
 
     document.getElementsByClassName("switch")[0].style.left = X + "px";
     document.getElementsByClassName("switch")[0].style.top = Y + "px";
