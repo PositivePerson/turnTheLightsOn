@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import ParticleEffectButton from 'react-particle-effect-button';
 
 const Seconds = styled.div`
     color: white;
@@ -19,19 +21,31 @@ const Ms = styled.div`
     right: -1.5em;
 `;
 
-const destroyScoreBox = (props) => {
-    props.setDestroyed(true);
-    document.getElementsByClassName("me")[0].style.top = "40%"
-}
-
 const ScoreBox = (props) => {
+    const [hidden, setHidden] = useState(false);
+
+    const duration = 1000;
+
+    const destroyScoreBox = async (props) => {
+        setHidden(true);
+        setTimeout(() => {
+            props.setDestroyed(true);
+            document.getElementsByClassName("me")[0].style.top = "40%"
+        }, duration);
+    }
 
     return (
         <div>
-            <Seconds>{props.time}<Ms>ms</Ms></Seconds>
+            <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration} >
+                <Seconds>{props.time}<Ms>ms</Ms></Seconds>
+            </ParticleEffectButton>
             <div>
-                <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => props.startGame()}>Play again</button>
-                <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => destroyScoreBox(props)}>Puff it</button>
+                <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration} >
+                    <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => props.startGame()}>Play again</button>
+                </ParticleEffectButton>
+                <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration} >
+                    <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => destroyScoreBox(props)}>Puff it</button>
+                </ParticleEffectButton>
             </div>
         </div >
     )
