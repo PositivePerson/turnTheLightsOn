@@ -1,24 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
 
 const BrightnessSlider = (props) => {
-    const [darkness, setDarkness] = useState(0);
+    const [darkness, setDarkness] = useState(0.3);
 
-    const refValue = useRef(0);
-
-    const handleDoubleClick = () => {
+    const handleDoubleClick = async () => {
         setDarkness(1);
-        component.props.start[0] = 1;
     }
 
     useEffect(() => {
         // .addEventListener('click', () => console.log(component))
-        console.log(component);
-        console.log(document.getElementsByClassName("sliderBox")[0].children);
-        document.getElementsByClassName("sliderBox")[0].children[0].addEventListener("dblclick", () => handleDoubleClick());
-        setTimeout(console.log(refValue.current), 1000);
+        // console.log(component);
+        // console.log(document.getElementsByClassName("sliderBox")[0].children);
+        document.getElementsByClassName("sliderBox")[0].children[0].addEventListener("dblclick", () => {
+            handleDoubleClick();
+
+            // document.getElementsByClassName("sliderBox")[0].children[0].children[0].childNodes[1].children[0].ariaValueNow = "0.7";
+            console.log(document.getElementsByClassName("sliderBox")[0].children[0].children[0].childNodes[1].children);
+            console.log(document.getElementsByClassName("sliderBox")[0].children[0].children[0].childNodes[1].children[0].ariaValueNow);
+            console.log(document.getElementsByClassName("sliderBox")[0].children[0].children[0].childNodes[1].children[0].ariaValueText);
+        });
+        // setTimeout(console.log(refValue.current), 500);
         // component.addEventListener("dblclick", () => console.log("dbclickeddd"));
     }, [])
 
@@ -36,7 +40,17 @@ const BrightnessSlider = (props) => {
         if (props.beginning === null) setDarkness(0.2);
     }, [props.beginning])
 
-    const component = <Nouislider style={slideStyle} ref={refValue} range={{ min: 0, max: 1 }} start={[0.2]} onUpdate={(value) => setDarkness(parseFloat(value))} />
+    // const component = React.createElement(Nouislider, {
+    //     style: slideStyle,
+    //     range: {
+    //         min: 0,
+    //         max: 1
+    //     },
+    //     start: [darkness],
+    //     onUpdate: value => setDarkness(parseFloat(value))
+    // });
+
+    const component = <Nouislider style={slideStyle} range={{ min: 0, max: 1 }} start={darkness} onUpdate={(value) => setDarkness(parseFloat(value))} />
 
     return (
         component)

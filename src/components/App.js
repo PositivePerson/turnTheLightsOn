@@ -19,7 +19,8 @@ const calculateTime = (beginning) => {
   return difference;
 }
 
-let beginning = undefined;
+// let beginning = undefined;
+let beginning = null;
 
 function App() {
 
