@@ -24,27 +24,69 @@ const Ms = styled.div`
 const ScoreBox = (props) => {
     const [hidden, setHidden] = useState(false);
 
-    const duration = 1000;
+    // const duration = 2250;
+    const duration = 800;
 
     const destroyScoreBox = async (props) => {
+
+        function movedUpAboutMe() {
+            return new Promise(resolve => {
+                document.querySelector(".me").addEventListener('transitionend', () => {
+                    resolve('ended moving \'about me\'');
+                })
+            });
+        }
+
+        function buttonDisappeared() {
+            return new Promise(resolve => {
+                console.log(document.querySelector(".b").offsetParent);
+                document.querySelector(".b").offsetParent.addEventListener('transitionend', () => {
+                    resolve('score buttons disappeared');
+                })
+            });
+        }
+
+        async function asyncMoveAboutMeUp() {
+            document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
+            console.log('start moving \'about me\'');
+            var x = await movedUpAboutMe();
+            console.log(x);
+        }
+
+        async function asynButtonRemove() {
+            var y = await buttonDisappeared();
+            console.log(y);
+        }
+
         setHidden(true);
-        setTimeout(() => {
-            props.setDestroyed(true);
-            document.getElementsByClassName("me")[0].style.top = "40%"
-        }, duration);
+
+        await asynButtonRemove();
+        props.setDestroyed(true);
+        await asyncMoveAboutMeUp();
+        console.log('the end of \'Puff\' animations');
+
+        //         document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
+        // async () => setTimeout(() => {
+        //     // document.getElementsByClassName("me")[0].style.top = "40%";
+        //     // document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
+        //     return () => {
+        //         document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
+        //     };
+        // }, 1000)
+        // .then(() => props.setDestroyed(true)).then(console.log('yay'));
     }
 
     return (
         <div>
             <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration} >
-                <Seconds>{props.time}<Ms>ms</Ms></Seconds>
+                <Seconds className="b">{props.time}<Ms>ms</Ms></Seconds>
             </ParticleEffectButton>
             <div>
                 <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration} >
-                    <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => props.startGame()}>Play again</button>
+                    <button className="a waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => props.startGame()}>Play again</button>
                 </ParticleEffectButton>
-                <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration} >
-                    <button className="waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => destroyScoreBox(props)}>Puff it</button>
+                <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration}>
+                    <button className="a waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => destroyScoreBox(props)}>Puff it</button>
                 </ParticleEffectButton>
             </div>
         </div >
