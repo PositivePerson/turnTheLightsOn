@@ -39,8 +39,8 @@ const ScoreBox = (props) => {
 
         function buttonDisappeared() {
             return new Promise(resolve => {
-                console.log(document.querySelector(".b").offsetParent);
-                document.querySelector(".b").offsetParent.addEventListener('transitionend', () => {
+                // console.log(document.querySelector(".b").offsetParent);
+                document.querySelector(".a").addEventListener('transitionend', () => {
                     resolve('score buttons disappeared');
                 })
             });
