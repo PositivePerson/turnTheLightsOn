@@ -24,90 +24,33 @@ const Ms = styled.div`
 const ScoreBox = (props) => {
     const [hidden, setHidden] = useState(false);
 
-
-    // const duration = 2250;
-    const duration = 500;
-
-    const firstRender = useRef(null);
-    firstRender.current = true;
-    useEffect(() => {
-        //     const destroyedScoreBoxElements = () => {
-        //         return new Promise(resolve => {
-        //             if(props.destroyed) resolve('Score Box has been just destroyed');
-        //         })
-        // }
-        firstRender.current ? (firstRender.current = !firstRender.current) : console.log("po useref");;
-        console.log("asyncMoveAboutMeUp() tutaj");
-        // asyncMoveAboutMeUp();
-
-    }, [props.destroyed])
-
-    function movedUpAboutMe() {
-        return new Promise(resolve => {
-            document.querySelector(".me").addEventListener('transitionend', () => {
-                resolve('ended moving \'about me\'');
-            })
-        });
-    }
-
-    async function asyncMoveAboutMeUp() {
-        document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
-        console.log('start moving \'about me\'');
-        var x = await movedUpAboutMe();
-        console.log(x);
-    }
+    const duration = 900;
 
     const destroyScoreBox = async (props) => {
 
-        function buttonDisappeared() {
+        function movedUpAboutMe() {
             return new Promise(resolve => {
-                document.querySelector(".a").addEventListener('transitionend', () => {
-                    resolve('score buttons disappeared');
+                document.querySelector(".me").addEventListener('transitionend', () => {
+                    resolve('ended moving \'about me\'');
                 })
             });
         }
 
-        async function asynButtonRemove() {
-            var y = await buttonDisappeared();
-            console.log(y);
+        async function remove_and_shuffle() {
+            document.getElementsByClassName("endCredits")[0].style.setProperty('display', 'none');
+            document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
         }
 
         setHidden(true);
 
-        async function remove_and_shuffle() {
-            // await props.setDestroyed(true);
-            document.getElementsByClassName("endCredits")[0].style.setProperty('display', 'none');
-            console.log(document.getElementsByClassName("endCredits"));
-            // asyncMoveAboutMeUp();
-            document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
-        }
-
-        await setTimeout(() => {
+        setTimeout(() => {
             remove_and_shuffle();
-            // }, 2250);
-        }, 1000);
+        }, 1300);
 
-        await setTimeout(() => { console.log("waiting"); }, 1000);
-
-        // await asynButtonRemove();
-        // props.setDestroyed(true);
-        // await asyncMoveAboutMeUp();
-        console.log('the end of \'Puff\' animations');
-
-        //         document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
-        // async () => setTimeout(() => {
-        //     // document.getElementsByClassName("me")[0].style.top = "40%";
-        //     // document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
-        //     return () => {
-        //         document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
-        //     };
-        // }, 1000)
-        // .then(() => props.setDestroyed(true)).then(console.log('yay'));
+        await movedUpAboutMe();
+        await props.setDestroyed(true);
+        // console.log('the end of \'Puff\' animations');
     }
-
-    // useEffect(() => {
-    //     if (props.destroyed) asyncMoveAboutMeUp();
-    // }, [props.destroyed])
 
     return (
         <div>
