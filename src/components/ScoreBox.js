@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import ParticleEffectButton from 'react-particle-effect-button';
@@ -24,33 +24,47 @@ const Ms = styled.div`
 const ScoreBox = (props) => {
     const [hidden, setHidden] = useState(false);
 
+
     // const duration = 2250;
-    const duration = 1000;
+    const duration = 500;
+
+    const firstRender = useRef(null);
+    firstRender.current = true;
+    useEffect(() => {
+        //     const destroyedScoreBoxElements = () => {
+        //         return new Promise(resolve => {
+        //             if(props.destroyed) resolve('Score Box has been just destroyed');
+        //         })
+        // }
+        firstRender.current ? (firstRender.current = !firstRender.current) : console.log("po useref");;
+        console.log("asyncMoveAboutMeUp() tutaj");
+        // asyncMoveAboutMeUp();
+
+    }, [props.destroyed])
+
+    function movedUpAboutMe() {
+        return new Promise(resolve => {
+            document.querySelector(".me").addEventListener('transitionend', () => {
+                resolve('ended moving \'about me\'');
+            })
+        });
+    }
+
+    async function asyncMoveAboutMeUp() {
+        document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
+        console.log('start moving \'about me\'');
+        var x = await movedUpAboutMe();
+        console.log(x);
+    }
 
     const destroyScoreBox = async (props) => {
 
-        function movedUpAboutMe() {
-            return new Promise(resolve => {
-                document.querySelector(".me").addEventListener('transitionend', () => {
-                    resolve('ended moving \'about me\'');
-                })
-            });
-        }
-
         function buttonDisappeared() {
             return new Promise(resolve => {
-                // console.log(document.querySelector(".b").offsetParent);
                 document.querySelector(".a").addEventListener('transitionend', () => {
                     resolve('score buttons disappeared');
                 })
             });
-        }
-
-        async function asyncMoveAboutMeUp() {
-            document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
-            console.log('start moving \'about me\'');
-            var x = await movedUpAboutMe();
-            console.log(x);
         }
 
         async function asynButtonRemove() {
@@ -60,12 +74,24 @@ const ScoreBox = (props) => {
 
         setHidden(true);
 
+        async function remove_and_shuffle() {
+            // await props.setDestroyed(true);
+            document.getElementsByClassName("endCredits")[0].style.setProperty('display', 'none');
+            console.log(document.getElementsByClassName("endCredits"));
+            // asyncMoveAboutMeUp();
+            document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
+        }
+
         await setTimeout(() => {
-            props.setDestroyed(true);
-        }, 2250);
+            remove_and_shuffle();
+            // }, 2250);
+        }, 1000);
+
+        await setTimeout(() => { console.log("waiting"); }, 1000);
+
         // await asynButtonRemove();
         // props.setDestroyed(true);
-        await asyncMoveAboutMeUp();
+        // await asyncMoveAboutMeUp();
         console.log('the end of \'Puff\' animations');
 
         //         document.getElementsByClassName("me")[0].style.setProperty('top', '40%');
@@ -78,6 +104,10 @@ const ScoreBox = (props) => {
         // }, 1000)
         // .then(() => props.setDestroyed(true)).then(console.log('yay'));
     }
+
+    // useEffect(() => {
+    //     if (props.destroyed) asyncMoveAboutMeUp();
+    // }, [props.destroyed])
 
     return (
         <div>

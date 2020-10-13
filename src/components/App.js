@@ -64,7 +64,7 @@ function App() {
         {beginning === undefined && <WelcomeTips />}
       </div>
       <div className="endCredits">
-        {beginning === null && !destroyed && <ScoreBox startGame={startGame} time={time} setDestroyed={setDestroyed} />}
+        {beginning === null && !destroyed && <ScoreBox startGame={startGame} time={time} destroyed={destroyed} setDestroyed={setDestroyed} />}
       </div>
       <div className="w-100 d-flex justify-content-center sliderBox">
         {beginning === null &&
