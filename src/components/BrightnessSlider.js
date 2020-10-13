@@ -27,7 +27,7 @@ const BrightnessSlider = (props) => {
     }, [])
 
     useEffect(() => {
-        console.log(darkness);
+        // console.log(darkness);
 
         if (!props.start && props.beginning !== undefined) {
             document.documentElement.style.setProperty('--secondBgColorOpacity', (1 - darkness) * 0.3);

@@ -4,6 +4,8 @@ import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import '../App.css';
 import '../manageCursorTorch';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import WelcomeTips from './WelcomeTips';
 import BrightnessSlider from './BrightnessSlider';
@@ -19,14 +21,31 @@ const calculateTime = (beginning) => {
   return difference;
 }
 
+let firstGame = true;
+
+const makeHintToast = () => {
+  toast('🦄 Wow so easy!', {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+  firstGame = !firstGame;
+}
+
 // let beginning = undefined;
 let beginning = null;
+
 
 function App() {
 
   const [start, setStart] = useState(false);
   const [time, setTime] = useState(calculateTime());
   const [destroyed, setDestroyed] = useState(false);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,6 +71,8 @@ function App() {
   const endGame = () => {
     setStart(false);
     beginning = null;
+
+    if (firstGame) makeHintToast();
   }
 
   const cursorType = !start && beginning === undefined ? { cursor: "pointer" } : { cursor: "default" };
@@ -59,6 +80,17 @@ function App() {
   return (
     <div className="App" style={cursorType} onClick={() => { if (!start && beginning === undefined) { startGame() } }
     }>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <header />
       <div className="initialCredits">
         {beginning === undefined && <WelcomeTips />}
