@@ -25,7 +25,7 @@ const ScoreBox = (props) => {
     const [hidden, setHidden] = useState(false);
 
     // const duration = 2250;
-    const duration = 800;
+    const duration = 1000;
 
     const destroyScoreBox = async (props) => {
 
@@ -60,8 +60,11 @@ const ScoreBox = (props) => {
 
         setHidden(true);
 
-        await asynButtonRemove();
-        props.setDestroyed(true);
+        await setTimeout(() => {
+            props.setDestroyed(true);
+        }, 2250);
+        // await asynButtonRemove();
+        // props.setDestroyed(true);
         await asyncMoveAboutMeUp();
         console.log('the end of \'Puff\' animations');
 
@@ -78,14 +81,14 @@ const ScoreBox = (props) => {
 
     return (
         <div>
-            <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration} >
+            <ParticleEffectButton color='whitesmoke' type='rectangle' direction='right' hidden={hidden} duration={duration} >
                 <Seconds className="b">{props.time}<Ms>ms</Ms></Seconds>
             </ParticleEffectButton>
             <div>
-                <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration} >
+                <ParticleEffectButton color='whitesmoke' type='rectangle' direction='right' hidden={hidden} duration={duration} >
                     <button className="a waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => props.startGame()}>Play again</button>
                 </ParticleEffectButton>
-                <ParticleEffectButton color='whitesmoke' hidden={hidden} duration={duration}>
+                <ParticleEffectButton color='whitesmoke' type='rectangle' direction='right' hidden={hidden} duration={duration}>
                     <button className="a waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => destroyScoreBox(props)}>Puff it</button>
                 </ParticleEffectButton>
             </div>
