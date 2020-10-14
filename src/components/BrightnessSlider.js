@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
-import { collapseToast, toast } from 'react-toastify';
 
 const BrightnessSlider = (props) => {
     const [darkness, setDarkness] = useState(0.3);
@@ -23,8 +22,7 @@ const BrightnessSlider = (props) => {
             console.log(document.getElementsByClassName("sliderBox")[0].children[0].children[0].childNodes[1].children[0].ariaValueNow);
             console.log(document.getElementsByClassName("sliderBox")[0].children[0].children[0].childNodes[1].children[0].ariaValueText);
         });
-        // setTimeout(console.log(refValue.current), 500);
-        // component.addEventListener("dblclick", () => console.log("dbclickeddd"));
+        document.getElementsByClassName("noUi-handle")[0].style.setProperty("outline", "none");
     }, [])
 
     useEffect(() => {
