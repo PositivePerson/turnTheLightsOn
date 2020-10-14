@@ -4,6 +4,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import '../App.css';
 import '../manageCursorTorch';
+import styled from 'styled-components';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,6 +13,12 @@ import BrightnessSlider from './BrightnessSlider';
 import LightSwitch from './LightSwitch';
 import ScoreBox from './ScoreBox';
 import ProfileButtons from './ProfileButtons';
+
+const StyledToastContainer = styled(ToastContainer)`
+  top: 2em;
+  width: auto;
+  z-index: 0;
+`;
 
 const calculateTime = (beginning) => {
   let difference = 0;
@@ -24,11 +31,12 @@ const calculateTime = (beginning) => {
 let firstGame = true;
 
 const makeHintToast = () => {
-  toast('🦄 Wow so easy!', {
+  toast('Doule-click on slider to make it bright immediately!', {
     position: "top-center",
-    autoClose: 5000,
+    // autoClose: 50000,
+    autoClose: 15000,
     hideProgressBar: false,
-    closeOnClick: false,
+    closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
@@ -80,7 +88,7 @@ function App() {
   return (
     <div className="App" style={cursorType} onClick={() => { if (!start && beginning === undefined) { startGame() } }
     }>
-      <ToastContainer
+      <StyledToastContainer
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -90,6 +98,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        closeButton={false}
       />
       <header />
       <div className="initialCredits">

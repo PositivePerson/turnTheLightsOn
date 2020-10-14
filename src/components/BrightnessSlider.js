@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
+import { collapseToast, toast } from 'react-toastify';
 
 const BrightnessSlider = (props) => {
     const [darkness, setDarkness] = useState(0.3);
