@@ -54,26 +54,28 @@ const evenlySpreadAbsoluteLetters = (line) => {
 
 const dropLetters = () => {
     const letters = document.getElementsByClassName("letterBox");
+    const delays = [];
 
+    const minimum = 0;
+    const maximum = 3500;
     [...letters].forEach((letter, index) => {
-        setTimeout(function doit() {
-            console.log(letter)
-        }, 1000)
-    });
 
-    [...letters].forEach((letter, index) =>
-        setTimeout(() => {
+        delays[index] = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+
+        if (letter.textContent !== ' ') setTimeout(() => {
             letter.animate([
                 { transform: 'translateY(550px)' },
-                // { transform: 'translateX(-300px)' }
             ], {
                 duration: 1000,
-                easing: "cubic-bezier(.77,.19,.77,.19)",
+                // easing: "linear",
+                // cubic-bezier(.81,.8,.84,.41)
                 // iterations: Infinity
             })
-            // letter.style.setProperty("opacity", 0);
+            letter.style.setProperty("opacity", 0);
             return 0;
-        }, 500))
+        }, delays[index] * 0.5)
+        // }, (index + 1) * 15)
+    });
 
     console.log(letters[0].getAnimations());
     console.log(letters[1].getAnimations());
@@ -89,11 +91,17 @@ const WelcomeTips = (props) => {
             return 0;
         })
 
+        // dropLetters();
+
+        setTimeout(() => {
+            dropLetters();
+        }, 1500);
+
     }, [])
 
-    setTimeout(() => {
-        dropLetters();
-    }, 1000);
+    // setTimeout(() => {
+    //     dropLetters();
+    // }, 1500);
 
     return (
         <Fragment>
