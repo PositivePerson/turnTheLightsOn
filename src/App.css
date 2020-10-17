@@ -36,3 +36,9 @@
   transition: all 1000ms;
   /* transition-delay: 500ms; */
 }
+
+.letterBox {
+  position: absolute; 
+  left: 0px;
+  transition: opacity 1000ms;
+}

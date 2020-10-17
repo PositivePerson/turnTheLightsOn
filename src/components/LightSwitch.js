@@ -27,6 +27,8 @@ const LightSwitch = (props) => {
             document.getElementsByClassName("switch")[0].style.top);
         if (bright) props.endGame();
         else renderPlace();
+
+        // eslint-disable-next-line
     }, [bright]);
 
     useEffect(() => {

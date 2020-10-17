@@ -31,7 +31,7 @@ const calculateTime = (beginning) => {
 let firstGame = true;
 
 const makeHintToast = () => {
-  toast('Doule-click on slider to make it bright immediately!', {
+  toast('Doule-click on ⬆slider⬆ to make it bright immediately!', {
     position: "top-center",
     // autoClose: 50000,
     autoClose: 15000,
@@ -44,8 +44,8 @@ const makeHintToast = () => {
   firstGame = !firstGame;
 }
 
-// let beginning = undefined;
-let beginning = null;
+let beginning = undefined;
+// let beginning = null;
 
 
 function App() {
