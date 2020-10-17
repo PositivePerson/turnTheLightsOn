@@ -69,7 +69,7 @@ function App() {
   })
 
 
-  async function endDropping() {
+  async function droppingLetters() {
     dropLetters();
     return new Promise(resolve => {
       document.querySelector(".letterBox").addEventListener('transitionend', () => {
@@ -79,7 +79,7 @@ function App() {
   }
 
   const startGame = async () => {
-    await endDropping();
+    await droppingLetters();
     setStart(true);
     document.documentElement.style.setProperty('--firstBgColorOpacity', 0);
     document.documentElement.style.setProperty('--secondBgColorOpacity', .3);
@@ -113,7 +113,7 @@ function App() {
       />
       <header />
       <div className="initialCredits">
-        {beginning === undefined && <WelcomeTips setStart={setStart} />}
+        {beginning === undefined && <WelcomeTips />}
       </div>
       <div className="endCredits">
         {beginning === null && !destroyed && <ScoreBox startGame={startGame} time={time} destroyed={destroyed} setDestroyed={setDestroyed} />}

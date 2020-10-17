@@ -52,7 +52,17 @@ const evenlySpreadAbsoluteLetters = (line) => {
     line.style.width = left + "px";
 }
 
-export const dropLetters = (props) => {
+export const blinkingHint = () => {
+    const hint = document.getElementsByTagName("h5")[0];
+    console.log(hint);
+    let interval = 100;
+    setInterval(() => {
+        hint.style.visibility = hint.style.visibility === "visible" ? "hidden" : "visible";
+        interval *= 0.05;
+    }, interval);
+}
+
+export const dropLetters = () => {
     const letters = document.getElementsByClassName("letterBox");
     const delays = [];
 
@@ -76,6 +86,8 @@ export const dropLetters = (props) => {
         }, delays[index] * 0.5)
         // }, (index + 1) * 15)
     });
+
+    blinkingHint();
 
     // props.setStart(true);
 
