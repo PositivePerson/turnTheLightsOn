@@ -13,6 +13,7 @@ import BrightnessSlider from './BrightnessSlider';
 import LightSwitch from './LightSwitch';
 import ScoreBox from './ScoreBox';
 import ProfileButtons from './ProfileButtons';
+import { dropLetters } from './WelcomeTips';
 
 const StyledToastContainer = styled(ToastContainer)`
   top: 2em;
@@ -47,7 +48,6 @@ const makeHintToast = () => {
 let beginning = undefined;
 // let beginning = null;
 
-
 function App() {
 
   const [start, setStart] = useState(false);
@@ -68,7 +68,18 @@ function App() {
     M.AutoInit();
   })
 
-  const startGame = () => {
+
+  async function endDropping() {
+    dropLetters();
+    return new Promise(resolve => {
+      document.querySelector(".letterBox").addEventListener('transitionend', () => {
+        resolve('ended dropping \'last letter\'');
+      })
+    });
+  }
+
+  const startGame = async () => {
+    await endDropping();
     setStart(true);
     document.documentElement.style.setProperty('--firstBgColorOpacity', 0);
     document.documentElement.style.setProperty('--secondBgColorOpacity', .3);
@@ -102,7 +113,7 @@ function App() {
       />
       <header />
       <div className="initialCredits">
-        {beginning === undefined && <WelcomeTips />}
+        {beginning === undefined && <WelcomeTips setStart={setStart} />}
       </div>
       <div className="endCredits">
         {beginning === null && !destroyed && <ScoreBox startGame={startGame} time={time} destroyed={destroyed} setDestroyed={setDestroyed} />}

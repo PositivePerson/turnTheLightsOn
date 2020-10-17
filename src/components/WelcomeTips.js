@@ -52,7 +52,7 @@ const evenlySpreadAbsoluteLetters = (line) => {
     line.style.width = left + "px";
 }
 
-const dropLetters = () => {
+export const dropLetters = (props) => {
     const letters = document.getElementsByClassName("letterBox");
     const delays = [];
 
@@ -77,8 +77,12 @@ const dropLetters = () => {
         // }, (index + 1) * 15)
     });
 
-    console.log(letters[0].getAnimations());
-    console.log(letters[1].getAnimations());
+    // props.setStart(true);
+
+    // return;
+
+    // console.log(letters[0].getAnimations());
+    // console.log(letters[1].getAnimations());
 }
 
 const WelcomeTips = (props) => {
@@ -92,16 +96,11 @@ const WelcomeTips = (props) => {
         })
 
         // dropLetters();
-
-        setTimeout(() => {
-            dropLetters();
-        }, 1500);
+        // setTimeout(() => {
+        //     dropLetters();
+        // }, 1500);
 
     }, [])
-
-    // setTimeout(() => {
-    //     dropLetters();
-    // }, 1500);
 
     return (
         <Fragment>
