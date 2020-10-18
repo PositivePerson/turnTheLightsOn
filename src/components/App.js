@@ -102,34 +102,27 @@ function App() {
         // }
 
         function checkIfLetterIsTransitioned(presentLetter) {
-          console.log(presentLetter.textContent);
           return new Promise(insideResolve => {
             presentLetter.addEventListener('madeTransparent', () => {
-              // console.log(presentLetter.textContent);
               insideResolve("Function 'checkIfLetterIsTransitioned': letter transitioned!");
             })
           })
         }
 
-        let numOfNotAnimated = document.getElementsByClassName("letterBox").length;
+        let numOfNotAnimated = [...document.getElementsByClassName("letterBox")].filter((letter) => letter.textContent !== ' ').length;
         console.log("numOfNotAnimated: " + numOfNotAnimated);
         document.querySelectorAll(".letterBox").forEach(async (letter, index, array) => {
-          // if (index === 1 || index === 2 || index === 0) console.log(array[index].textContent);
-          await checkIfLetterIsTransitioned(letter).then((resolve) => {
-            // console.log(resolve);
-            // console.log(letter.getAnimations({ subtree: true }));
+          if (letter.textContent === ' ') {
+            console.log(letter.textContent);
+          } else await checkIfLetterIsTransitioned(letter).then((resolve) => {
             numOfNotAnimated--;
             console.log(numOfNotAnimated);
           });
-          // if (index === 1 || index === 2 || index === 0) console.log(letter.getAnimations({ subtree: true }));
-          // if (index === 1 || index === 2 || index === 0) console.log(array[index].textContent);
-          // if (index === 1 || index === 2 || index === 0) console.log(letter.textContent);
-          if (numOfNotAnimated <= 16) {
-            resolve("Function 'droppingLetters': completed");
+          if (numOfNotAnimated === 0) {
+            setTimeout(() => {
+              resolve("Function 'droppingLetters': completed");
+            }, 500);
           };
-          // if (index === document.querySelectorAll(".letterBox").length - 1) {
-          //   resolve("Function 'droppingLetters': completed");
-          // };
         })
 
       }
