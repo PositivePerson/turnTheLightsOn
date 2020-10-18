@@ -71,15 +71,78 @@ function App() {
 
   async function droppingLetters() {
     dropLetters();
-    return new Promise(resolve => {
-      document.querySelector(".letterBox").addEventListener('transitionend', () => {
-        resolve('ended dropping \'last letter\'');
-      })
-    });
+    // return new Promise(async resolve => {
+    const isDone = [document.getElementsByClassName("letterBox").length];
+    // [...document.getElementsByClassName("letterBox")].forEach((letter, index) => letter.addEventListener('transitionend', (letter) => {
+    //   // document.querySelector(".letterBox").addEventListener('transitionend', () => {
+    //   console.log(letter);
+    //   isDone[index] = !isDone[index];
+    //   console.log(index, "after:", isDone[index]);
+    // }));
+    return new Promise(async resolve => {
+
+      const checkAreAllLettersTransitioned = () => {
+
+        // let notAnimated = [...document.getElementsByClassName("letterBox")];
+        // console.log(notAnimated);
+        // while (notAnimated.length) {
+        //   notAnimated.filter((elem) => elem.style.opacity);
+        //   console.log(notAnimated.length);
+        //   if (notAnimated.length === 0) {
+        //     resolve("Si, all animated");
+        //   }
+        // }
+        // setTimeout(() => { console.log("problemo appeared"); }, 3000)
+
+        // if (notAnimated.length === 0) {
+        //   resolve("Si, all animated");
+        // } else {
+        //   console.log("problem in 'checkAreAllLettersTransitioned'");
+        //   resolve("problemo")
+        // }
+
+        function checkIfLetterIsTransitioned(presentLetter) {
+          console.log(presentLetter.textContent);
+          return new Promise(insideResolve => {
+            presentLetter.addEventListener('madeTransparent', () => {
+              // console.log(presentLetter.textContent);
+              insideResolve("Function 'checkIfLetterIsTransitioned': letter transitioned!");
+            })
+          })
+        }
+
+        let numOfNotAnimated = document.getElementsByClassName("letterBox").length;
+        console.log("numOfNotAnimated: " + numOfNotAnimated);
+        document.querySelectorAll(".letterBox").forEach(async (letter, index, array) => {
+          // if (index === 1 || index === 2 || index === 0) console.log(array[index].textContent);
+          await checkIfLetterIsTransitioned(letter).then((resolve) => {
+            // console.log(resolve);
+            // console.log(letter.getAnimations({ subtree: true }));
+            numOfNotAnimated--;
+            console.log(numOfNotAnimated);
+          });
+          // if (index === 1 || index === 2 || index === 0) console.log(letter.getAnimations({ subtree: true }));
+          // if (index === 1 || index === 2 || index === 0) console.log(array[index].textContent);
+          // if (index === 1 || index === 2 || index === 0) console.log(letter.textContent);
+          if (numOfNotAnimated <= 16) {
+            resolve("Function 'droppingLetters': completed");
+          };
+          // if (index === document.querySelectorAll(".letterBox").length - 1) {
+          //   resolve("Function 'droppingLetters': completed");
+          // };
+        })
+
+      }
+      await checkAreAllLettersTransitioned();
+      console.log("Function 'droppingLetters': done?");
+    })
+
+    // resolve('ended dropping \'last letter\'');
+    // });
   }
 
   const startGame = async () => {
-    await droppingLetters();
+    if (beginning === undefined) await droppingLetters();
     setStart(true);
     document.documentElement.style.setProperty('--firstBgColorOpacity', 0);
     document.documentElement.style.setProperty('--secondBgColorOpacity', .3);

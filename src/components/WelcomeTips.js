@@ -55,10 +55,10 @@ const evenlySpreadAbsoluteLetters = (line) => {
 export const blinkingHint = () => {
     const hint = document.getElementsByTagName("h5")[0];
     console.log(hint);
-    let interval = 100;
+    let interval = 75;
     setInterval(() => {
         hint.style.visibility = hint.style.visibility === "visible" ? "hidden" : "visible";
-        interval *= 0.05;
+        interval /= 4;
     }, interval);
 }
 
@@ -82,6 +82,9 @@ export const dropLetters = () => {
                 // iterations: Infinity
             })
             letter.style.setProperty("opacity", 0);
+
+            var event = new CustomEvent('madeTransparent');
+            letter.dispatchEvent(event);
             return 0;
         }, delays[index] * 0.5)
         // }, (index + 1) * 15)
