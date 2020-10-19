@@ -21,6 +21,10 @@ const Ms = styled.div`
     right: -1.5em;
 `;
 
+const playAgain = (props) => {
+    props.startGame();
+}
+
 const ScoreBox = (props) => {
     const [hidden, setHidden] = useState(false);
 
@@ -51,6 +55,9 @@ const ScoreBox = (props) => {
         await movedUpAboutMe();
         await props.setDestroyed(true);
         // console.log('the end of \'Puff\' animations');
+
+        // document.getElementsByClassName('noUi-target')[0].noUiSlider.destroy();
+        console.log(document.getElementsByClassName('Toastify__toast-container'));
     }
 
     return (
@@ -60,7 +67,7 @@ const ScoreBox = (props) => {
             </ParticleEffectButton>
             <div>
                 <ParticleEffectButton color='whitesmoke' type='rectangle' direction='right' hidden={hidden} duration={duration} >
-                    <button className="a waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => props.startGame()}>Play again</button>
+                    <button className="a waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => playAgain(props)}>Play again</button>
                 </ParticleEffectButton>
                 <ParticleEffectButton color='whitesmoke' type='rectangle' direction='right' hidden={hidden} duration={duration}>
                     <button className="a waves-effect waves-light btn-small mx-1" style={constWidth} type="submit" name="action" onClick={() => destroyScoreBox(props)}>Puff it</button>

@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import WelcomeTips from './WelcomeTips';
 import BrightnessSlider from './BrightnessSlider';
 import LightSwitch from './LightSwitch';
-import ScoreBox from './ScoreBox';
+import ScoreBox, { playAgain } from './ScoreBox';
 import ProfileButtons from './ProfileButtons';
 import { dropLetters } from './WelcomeTips';
 
@@ -45,8 +45,8 @@ const makeHintToast = () => {
   firstGame = !firstGame;
 }
 
-// let beginning = undefined;
-let beginning = null;
+let beginning = undefined;
+// let beginning = null;
 
 function App() {
 
@@ -125,18 +125,20 @@ function App() {
   return (
     <div className="App" style={cursorType} onClick={() => { if (!start && beginning === undefined) { startGame() } }
     }>
-      <StyledToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        closeButton={false}
-      />
+      {beginning === null &&
+        <StyledToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          closeButton={false}
+        />
+      }
       <header />
       <div className="initialCredits">
         {beginning === undefined && <WelcomeTips />}
