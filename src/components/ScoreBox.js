@@ -45,7 +45,8 @@ const ScoreBox = (props) => {
 
         setTimeout(() => {
             remove_and_shuffle();
-        }, 1300);
+            // }, 1300);
+        }, 1750);
 
         await movedUpAboutMe();
         await props.setDestroyed(true);

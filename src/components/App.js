@@ -45,8 +45,8 @@ const makeHintToast = () => {
   firstGame = !firstGame;
 }
 
-let beginning = undefined;
-// let beginning = null;
+// let beginning = undefined;
+let beginning = null;
 
 function App() {
 
@@ -71,35 +71,9 @@ function App() {
 
   async function droppingLetters() {
     dropLetters();
-    // return new Promise(async resolve => {
-    const isDone = [document.getElementsByClassName("letterBox").length];
-    // [...document.getElementsByClassName("letterBox")].forEach((letter, index) => letter.addEventListener('transitionend', (letter) => {
-    //   // document.querySelector(".letterBox").addEventListener('transitionend', () => {
-    //   console.log(letter);
-    //   isDone[index] = !isDone[index];
-    //   console.log(index, "after:", isDone[index]);
-    // }));
+
     return new Promise(async resolve => {
-
       const checkAreAllLettersTransitioned = () => {
-
-        // let notAnimated = [...document.getElementsByClassName("letterBox")];
-        // console.log(notAnimated);
-        // while (notAnimated.length) {
-        //   notAnimated.filter((elem) => elem.style.opacity);
-        //   console.log(notAnimated.length);
-        //   if (notAnimated.length === 0) {
-        //     resolve("Si, all animated");
-        //   }
-        // }
-        // setTimeout(() => { console.log("problemo appeared"); }, 3000)
-
-        // if (notAnimated.length === 0) {
-        //   resolve("Si, all animated");
-        // } else {
-        //   console.log("problem in 'checkAreAllLettersTransitioned'");
-        //   resolve("problemo")
-        // }
 
         function checkIfLetterIsTransitioned(presentLetter) {
           return new Promise(insideResolve => {
@@ -113,10 +87,10 @@ function App() {
         console.log("numOfNotAnimated: " + numOfNotAnimated);
         document.querySelectorAll(".letterBox").forEach(async (letter, index, array) => {
           if (letter.textContent === ' ') {
-            console.log(letter.textContent);
+            console.log("Blank space appeared in: 'checkAreAllLettersTransitioned' func");
           } else await checkIfLetterIsTransitioned(letter).then((resolve) => {
             numOfNotAnimated--;
-            console.log(numOfNotAnimated);
+            console.log(numOfNotAnimated + " not animated letters");
           });
           if (numOfNotAnimated === 0) {
             setTimeout(() => {
@@ -127,11 +101,7 @@ function App() {
 
       }
       await checkAreAllLettersTransitioned();
-      console.log("Function 'droppingLetters': done?");
     })
-
-    // resolve('ended dropping \'last letter\'');
-    // });
   }
 
   const startGame = async () => {
