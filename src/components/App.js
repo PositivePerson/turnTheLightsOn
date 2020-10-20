@@ -25,7 +25,7 @@ export const changeTitle = () => {
   let titleElem = document.getElementsByTagName("title")[0];
   console.log(titleElem.textContent);
   switch (titleElem.textContent) {
-    case "Good Job!":
+    case "Well Done!":
       titleElem.textContent = "See ya later :)";
       break;
     default:

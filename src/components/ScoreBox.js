@@ -5,22 +5,29 @@ import { changeTitle } from './App';
 
 import ParticleEffectButton from 'react-particle-effect-button';
 
-const Seconds = styled.div`
+const Seconds = styled.span`
     color: white;
     font-size: 2em;
     font-weight: 600;
     display: inline-flex;
     position: relative;
     margin-bottom: .4em;
+    padding-left: .6em;
 `;
 
-const Ms = styled.div`
-    font-size: .5em;
+const Ms = styled.span`
+    color: white;
     font-weight: 400;
-    position: absolute;
-    bottom: .3em;
-    right: -1.5em;
+    padding-left: .15em;
 `;
+
+// const Ms = styled.div`
+//     font-size: .5em;
+//     font-weight: 400;
+//     position: absolute;
+//     bottom: .3em;
+//     right: -1.5em;
+// `;
 
 const playAgain = (props) => {
     props.startGame();
@@ -70,7 +77,8 @@ const ScoreBox = (props) => {
     return (
         <div>
             <ParticleEffectButton color='whitesmoke' type='rectangle' direction='right' hidden={hidden} duration={duration} >
-                <Seconds className="b">{props.time}<Ms className="b1">ms</Ms></Seconds>
+                <Seconds className="b">{props.time}</Seconds>
+                <Ms className="b1">ms</Ms>
             </ParticleEffectButton>
             <div>
                 <ParticleEffectButton color='whitesmoke' type='rectangle' direction='right' hidden={hidden} duration={duration} >
