@@ -162,6 +162,11 @@ function App() {
         }
       </div>
       {beginning &&
+        <div className="timer">
+          <span>{time}</span>
+        </div>
+      }
+      {beginning &&
         <LightSwitch endGame={endGame} start={start} />
       }
       {!start && beginning === null &&

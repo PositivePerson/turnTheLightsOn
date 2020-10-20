@@ -48,3 +48,14 @@
 .noUi-target {
   cursor: pointer;
 }
+
+.timer {
+  color: red;
+  font-size: 1.3em;
+  /* margin-left: auto; */
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+} 
