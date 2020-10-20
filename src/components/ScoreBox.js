@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+
+import { changeTitle } from './App';
 
 import ParticleEffectButton from 'react-particle-effect-button';
 
@@ -9,7 +11,6 @@ const Seconds = styled.div`
     font-weight: 600;
     display: inline-flex;
     position: relative;
-
     margin-bottom: .4em;
 `;
 
@@ -54,16 +55,22 @@ const ScoreBox = (props) => {
 
         await movedUpAboutMe();
         await props.setDestroyed(true);
+        changeTitle();
         // console.log('the end of \'Puff\' animations');
 
         // document.getElementsByClassName('noUi-target')[0].noUiSlider.destroy();
         // console.log(document.getElementsByClassName('Toastify__toast-container'));
     }
 
+    useEffect(() => {
+        console.log(document.getElementsByClassName("b")[0].offsetWidth);
+        // document.getElementsByClassName("b")[0].style.width = `calc(100% + ${document.getElementsByClassName("b1")[0].offsetWidth + 'px'} + 1.5em)`;
+    }, [])
+
     return (
         <div>
             <ParticleEffectButton color='whitesmoke' type='rectangle' direction='right' hidden={hidden} duration={duration} >
-                <Seconds className="b">{props.time}<Ms>ms</Ms></Seconds>
+                <Seconds className="b">{props.time}<Ms className="b1">ms</Ms></Seconds>
             </ParticleEffectButton>
             <div>
                 <ParticleEffectButton color='whitesmoke' type='rectangle' direction='right' hidden={hidden} duration={duration} >

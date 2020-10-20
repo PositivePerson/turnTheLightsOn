@@ -21,6 +21,20 @@ const StyledToastContainer = styled(ToastContainer)`
   z-index: 0;
 `;
 
+export const changeTitle = () => {
+  let titleElem = document.getElementsByTagName("title")[0];
+  console.log(titleElem.textContent);
+  switch (titleElem.textContent) {
+    case "Good Job!":
+      titleElem.textContent = "See ya later :)";
+      break;
+    default:
+      titleElem.textContent = "Well Done!";
+      break;
+  }
+  // title.textContent === "Hurry Up!" ? title.textContent = "Bright Time" : title.textContent = "Hurry Up!";
+}
+
 const calculateTime = (beginning) => {
   let difference = 0;
   if (beginning) {
@@ -59,7 +73,8 @@ function App() {
     const timer = setTimeout(() => {
       const calculated = calculateTime(beginning);
       if (calculated) setTime(calculateTime(beginning));
-    }, 10);
+      if (calculated) document.getElementsByTagName("title")[0].textContent = "Lost " + Math.round(calculateTime(beginning) / 1000) + " sec :)";
+    }, 55);
     return () => clearTimeout(timer);
   })
 
@@ -111,12 +126,13 @@ function App() {
     document.documentElement.style.setProperty('--secondBgColorOpacity', .3);
     document.documentElement.style.setProperty('--thirdBgColorOpacity', 1);
     beginning = new Date();
+    changeTitle();
   }
 
   const endGame = () => {
     setStart(false);
     beginning = null;
-
+    changeTitle();
 
     if (firstGame) makeHintToast();
   }

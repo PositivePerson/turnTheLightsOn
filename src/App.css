@@ -29,6 +29,10 @@
   z-index: 101;
 }
 
+.endCredits {
+  overflow: visible;
+}
+
 .me {
   position: absolute;
   top: 85%;
