@@ -57,7 +57,7 @@ const ScoreBox = (props) => {
         // console.log('the end of \'Puff\' animations');
 
         // document.getElementsByClassName('noUi-target')[0].noUiSlider.destroy();
-        console.log(document.getElementsByClassName('Toastify__toast-container'));
+        // console.log(document.getElementsByClassName('Toastify__toast-container'));
     }
 
     return (

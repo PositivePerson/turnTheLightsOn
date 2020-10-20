@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import WelcomeTips from './WelcomeTips';
 import BrightnessSlider from './BrightnessSlider';
 import LightSwitch from './LightSwitch';
-import ScoreBox, { playAgain } from './ScoreBox';
+import ScoreBox from './ScoreBox';
 import ProfileButtons from './ProfileButtons';
 import { dropLetters } from './WelcomeTips';
 
@@ -35,7 +35,7 @@ const makeHintToast = () => {
   toast('Doule-click on ⬆slider⬆ to make it bright immediately!', {
     position: "top-center",
     // autoClose: 50000,
-    autoClose: 15000,
+    // autoClose: 15000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -117,13 +117,23 @@ function App() {
     setStart(false);
     beginning = null;
 
+
     if (firstGame) makeHintToast();
   }
 
-  const cursorType = !start && beginning === undefined ? { cursor: "pointer" } : { cursor: "default" };
+  // const cursorType = !start && beginning === undefined ? { cursor: "pointer" } : { cursor: "default" };
+  const cursorType = () => {
+    if (!start && beginning === undefined) {
+      return { cursor: "pointer" }
+    } else if (start) {
+      return { cursor: "grab" }
+    } else {
+      return { cursor: "default" }
+    }
+  }
 
   return (
-    <div className="App" style={cursorType} onClick={() => { if (!start && beginning === undefined) { startGame() } }
+    <div className="App" style={cursorType()} onClick={() => { if (!start && beginning === undefined) { startGame() } }
     }>
       {beginning === null &&
         <StyledToastContainer
